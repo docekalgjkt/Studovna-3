@@ -2,7 +2,6 @@ package cz.gjkt.view;
 
 import cz.gjkt.model.Kurz;
 import cz.gjkt.model.KurzyDAOJDBC;
-import cz.gjkt.model.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,7 +45,7 @@ public class KurzyController {
         tableView.getColumns().addAll(nazevColumn,predmetColumn);
     }
 
-
+    
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initColumns();
         fillTable();

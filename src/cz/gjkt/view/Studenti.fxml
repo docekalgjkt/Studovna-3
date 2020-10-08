@@ -16,7 +16,7 @@
             <Button mnemonicParsing="false" onAction="#handlePridejButton" text="Přidej" />
             <Button mnemonicParsing="false" onAction="#handleSmazButton" text="Smaž" />
             <Button mnemonicParsing="false" onAction="#handleUpravButton" text="Uprav" />
-            <Button mnemonicParsing="false" text="Domů" />
+            <Button fx:id="handleDomu" mnemonicParsing="false" text="Domů" />
          </children>
       </HBox>
       <TableView fx:id="tableView" layoutY="48.0" prefHeight="350.0" prefWidth="600.0" />
