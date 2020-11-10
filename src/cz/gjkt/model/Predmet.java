@@ -2,7 +2,7 @@ package cz.gjkt.model;
 
 public class Predmet {
 
-    private static int id;
+    private int id;
     private String nazev;
     private String popis;
     private String sylabus;

@@ -159,6 +159,6 @@ public class StudentiController implements Initializable {
     }
 
     public void handleDomu(){
-
+        Main.getPrimaryStage().setScene(Main.getHomeStage());
     }
 }

@@ -118,11 +118,14 @@ public class PredmetyController implements Initializable {
         dialog.setResultConverter(new Callback<ButtonType, Predmet>() {
             @Override
             public Predmet call(ButtonType param) {
-                    Predmet predmet = new Predmet();
-                    predmet.setNazev(nazevTextField.getText());
-                    predmet.setPopis(popisTextArea.getText());
-                    predmet.setZkratka(zkratkaTextField.getText());
-                    return  predmet;
+                   if(param == createButtonType) {
+                       Predmet predmet = new Predmet();
+                       predmet.setNazev(nazevTextField.getText());
+                       predmet.setPopis(popisTextArea.getText());
+                       predmet.setZkratka(zkratkaTextField.getText());
+                       return predmet;
+                   }
+                   return null;
             }
         });
     }
@@ -137,11 +140,23 @@ public class PredmetyController implements Initializable {
     }
 
     public void handleUpravButton(){
-      /*  Predmet item = (Predmet) tableView.getSelectionModel().getSelectedItem();
-        System.out.println("Selected: " + item);
-        predmety.update(item);
-        predmetyDao.update(item);
-        tableView.refresh(); */
+        try{
+       /* Predmet item = (Predmet) tableView.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource(***********));
+        AnchorPane root = (AnchorPane) loader.load();
+        PredmetController controller = (PredmetController) loader.getController();
+        controller.setPredmet(item);
+        //controller.setNazev(item.getNazev());
+        //controller.setZkratka(item.getZkratka());
+        controller.setPredmetyScene(tableView.getScene());
+        controller.setPredmetyController(this);
+        Scene scene = new Scene(root);
+        Stage ps = Main.getPrimaryStage();
+        ps.setScene(scene); */
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleZpetButton(){
