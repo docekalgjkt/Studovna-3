@@ -1,5 +1,6 @@
 package cz.gjkt.view;
 
+import cz.gjkt.application.Main;
 import cz.gjkt.model.Predmet;
 import cz.gjkt.model.PredmetyDAOJDBC;
 import javafx.collections.FXCollections;
@@ -159,8 +160,8 @@ public class PredmetyController implements Initializable {
         }
     }
 
-    public void handleZpetButton(){
-
+    public void handleDomuButton(){
+      //  Main.getPrimaryStage().setScene(Main.getRootLayout().getScene());
     }
 
     @Override

@@ -46,6 +46,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    public void getRootLayout(){
+        initRootLayoutFXML();
+    }
+
     public void initRootLayoutFXML() {
         try {
             // Load root layout from fxml file.
