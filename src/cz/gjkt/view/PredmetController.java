@@ -20,4 +20,13 @@ public class PredmetController {
     public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
+
+    public void setPredmet(Predmet item) {
+    }
+
+    public void setPredmetyScene(Scene scene) {
+    }
+
+    public void setPredmetyController(PredmetyController predmetyController) {
+    }
 }

@@ -7,12 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import javax.swing.text.LabelView;
@@ -142,19 +146,17 @@ public class PredmetyController implements Initializable {
 
     public void handleUpravButton(){
         try{
-       /* Predmet item = (Predmet) tableView.getSelectionModel().getSelectedItem();
+        Predmet item = (Predmet) tableView.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource(***********));
+        loader.setLocation(Main.class.getResource("../view/Predmet.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
         PredmetController controller = (PredmetController) loader.getController();
         controller.setPredmet(item);
-        //controller.setNazev(item.getNazev());
-        //controller.setZkratka(item.getZkratka());
         controller.setPredmetyScene(tableView.getScene());
         controller.setPredmetyController(this);
         Scene scene = new Scene(root);
         Stage ps = Main.getPrimaryStage();
-        ps.setScene(scene); */
+        ps.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
         }
