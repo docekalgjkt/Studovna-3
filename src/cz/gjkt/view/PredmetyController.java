@@ -1,17 +1,22 @@
 package cz.gjkt.view;
 
+import cz.gjkt.application.Main;
 import cz.gjkt.model.Predmet;
 import cz.gjkt.model.PredmetyDAOJDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import javax.swing.text.LabelView;
@@ -118,11 +123,14 @@ public class PredmetyController implements Initializable {
         dialog.setResultConverter(new Callback<ButtonType, Predmet>() {
             @Override
             public Predmet call(ButtonType param) {
-                    Predmet predmet = new Predmet();
-                    predmet.setNazev(nazevTextField.getText());
-                    predmet.setPopis(popisTextArea.getText());
-                    predmet.setZkratka(zkratkaTextField.getText());
-                    return  predmet;
+                   if(param == createButtonType) {
+                       Predmet predmet = new Predmet();
+                       predmet.setNazev(nazevTextField.getText());
+                       predmet.setPopis(popisTextArea.getText());
+                       predmet.setZkratka(zkratkaTextField.getText());
+                       return predmet;
+                   }
+                   return null;
             }
         });
     }
@@ -137,15 +145,25 @@ public class PredmetyController implements Initializable {
     }
 
     public void handleUpravButton(){
-      /*  Predmet item = (Predmet) tableView.getSelectionModel().getSelectedItem();
-        System.out.println("Selected: " + item);
-        predmety.update(item);
-        predmetyDao.update(item);
-        tableView.refresh(); */
+        try{
+        Predmet item = (Predmet) tableView.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/Predmet.fxml"));
+        AnchorPane root = (AnchorPane) loader.load();
+        PredmetController controller = (PredmetController) loader.getController();
+        controller.setPredmet(item);
+        controller.setPredmetyScene(tableView.getScene());
+        controller.setPredmetyController(this);
+        Scene scene = new Scene(root);
+        Stage ps = Main.getPrimaryStage();
+        ps.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void handleZpetButton(){
-
+    public void handleDomuButton(){
+      //  Main.getPrimaryStage().setScene(Main.getRootLayout().getScene());
     }
 
     @Override

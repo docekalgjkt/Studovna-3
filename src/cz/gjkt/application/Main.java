@@ -1,23 +1,19 @@
 package cz.gjkt.application;
 
-import cz.gjkt.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
 
     private static Stage primaryStage;
+    private static Scene homeScene;
     private AnchorPane rootLayout;
 
     public static void main(String[] args){
@@ -27,11 +23,15 @@ public class Main extends Application {
     public static Stage getPrimaryStage(){
         return primaryStage;
     }
+    public static Scene getHomeStage(){
+        return homeScene;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         initRootLayoutFXML();
+
     }
 
     public void initRootLayoutCode() {
@@ -44,6 +44,10 @@ public class Main extends Application {
         Scene scene = new Scene(root, 400, 300, Color.GRAY);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void getRootLayout(){
+        initRootLayoutFXML();
     }
 
     public void initRootLayoutFXML() {
