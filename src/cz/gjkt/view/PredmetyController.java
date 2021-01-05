@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import javax.swing.text.LabelView;
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.List;
@@ -163,7 +164,18 @@ public class PredmetyController implements Initializable {
     }
 
     public void handleDomuButton(){
-      //  Main.getPrimaryStage().setScene(Main.getRootLayout().getScene());
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/main.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+        //  Main.getPrimaryStage().setScene(Main.getRootLayout().getScene());
     }
 
     @Override
