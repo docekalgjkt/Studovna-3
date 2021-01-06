@@ -159,6 +159,17 @@ public class StudentiController implements Initializable {
     }
 
     public void handleDomu(){
-        Main.getPrimaryStage().setScene(Main.getHomeStage());
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/main.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+        //Main.getPrimaryStage().setScene(Main.getHomeStage());
     }
 }
