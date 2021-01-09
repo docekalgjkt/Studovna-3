@@ -28,8 +28,6 @@ public class MainController {
         Scene scene = new Scene(rootLayout);
         
         Main.getPrimaryStage().setScene(scene);
-
-
     }
 
     public void selectStudenti(){
@@ -46,8 +44,6 @@ public class MainController {
         Scene scene = new Scene(rootLayout);
 
         Main.getPrimaryStage().setScene(scene);
-
-
     }
 
     public void selectKurzy(){
@@ -66,4 +62,103 @@ public class MainController {
         Main.getPrimaryStage().setScene(scene);
     }
 
+    public void selectTypyZnamek(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/TypyZnamek.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void selectDruhyZnamek(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/Nefunguje.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void selectSkolniRok(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/Nefunguje.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void selectNastaveni(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/Nefunguje.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void selectOAplikaci(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/OAplikaci.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void selectUzivatel(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/Nefunguje.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void odhlasit(){
+        System.exit(0);
+    }
 }

@@ -22,7 +22,7 @@
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Typy známek">
+            <Button mnemonicParsing="false" onAction="#selectTypyZnamek" prefHeight="100.0" prefWidth="150.0" text="Typy známek">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                </HBox.margin></Button>
@@ -37,6 +37,30 @@
             </Label>
          </children>
       </TextFlow>
-      <HBox layoutX="159.0" layoutY="247.0" prefHeight="139.0" prefWidth="421.0" />
+      <HBox layoutX="10.0" layoutY="247.0" prefHeight="122.0" prefWidth="579.0">
+         <children>
+            <Button fx:id="kurzyId1" mnemonicParsing="false" onAction="#selectSkolniRok" prefHeight="100.0" prefWidth="135.0" text="Školní rok">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="kurzyId11" mnemonicParsing="false" onAction="#selectDruhyZnamek" prefHeight="100.0" prefWidth="135.0" text="DruhyZnamek">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="kurzyId12" mnemonicParsing="false" onAction="#selectNastaveni" prefHeight="100.0" prefWidth="135.0" text="Nastavení">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#selectOAplikaci" prefHeight="100.0" prefWidth="135.0" text="O aplikaci">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children></HBox>
+      <Button layoutX="443.0" layoutY="26.0" mnemonicParsing="false" onAction="#selectUzivatel" text="Uživatel" />
+      <Button layoutX="507.0" layoutY="26.0" mnemonicParsing="false" onAction="#odhlasit" text="Odhlásit" />
    </children>
 </AnchorPane>

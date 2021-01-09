@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.gjkt.view.NefungujeController">
+   <children>
+      <TextFlow layoutX="24.0" layoutY="14.0" prefHeight="200.0" prefWidth="393.0">
+         <children>
+            <Label contentDisplay="CENTER" prefHeight="50.0" prefWidth="386.0" text="Error! Něco se muselo pokazit :(" />
+            <Label prefHeight="42.0" prefWidth="75.0" text="Kód chyby: #1" />
+            <Label prefHeight="42.0" prefWidth="391.0" text="Kontaktujte tvůrce programu na adrese jakub.federsel@gjkt.eu" textAlignment="CENTER" />
+         </children></TextFlow>
+      <Button layoutX="438.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleDomu" prefHeight="25.0" prefWidth="89.0" text="Zpět domů" />
+   </children>
+</AnchorPane>
