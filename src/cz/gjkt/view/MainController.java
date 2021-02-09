@@ -158,6 +158,22 @@ public class MainController {
         Main.getPrimaryStage().setScene(scene);
     }
 
+    public void selectStudentiKurzu(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/StudentiKurzu.fxml"));
+        AnchorPane rootLayout = null;
+        try {
+            rootLayout = (AnchorPane) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+
+        Main.getPrimaryStage().setScene(scene);
+    }
+
     public void odhlasit(){
         System.exit(0);
     }
