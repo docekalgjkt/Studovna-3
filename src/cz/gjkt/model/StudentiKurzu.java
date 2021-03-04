@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentiKurzu {
-    int kurz;
+    Kurz kurz;
     List<Student> studenti = new ArrayList<Student>();
 
-    public StudentiKurzu(int kurz){
+    public StudentiKurzu(Kurz kurz){
         this.kurz=kurz;
+        studenti = nactiStudenty();
     }
 
+    public List<Student> getStudenti(){return studenti;}
+
     private List<Student> nactiStudenty(){
-        return null;
+        StudentiKurzuDAO DAO = new StudentiKurzuDAO();
+        return DAO.getAll();
     }
 }

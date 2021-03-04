@@ -1,8 +1,10 @@
 package cz.gjkt.view;
 
 import cz.gjkt.application.Main;
-import cz.gjkt.model.Kurz;
-import cz.gjkt.model.KurzyDAOJDBC;
+import cz.gjkt.model.SkolniRok;
+import cz.gjkt.model.SkolniRokyDAOJDBC;
+import cz.gjkt.model.TypZnamky;
+import cz.gjkt.model.TypyZnamekDAOJDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,16 +25,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class KurzyController implements Initializable {
+public class SkolniRokController implements Initializable {
 
     @FXML
     TableView tableView;
 
-    KurzyDAOJDBC kurzyDao = new KurzyDAOJDBC();
-    List<Kurz> kurzy;
-    ObservableList<Kurz> items;
-    ObservableList<Kurz> selectedItems = null;
-
+    SkolniRokyDAOJDBC skolniRokyDao = new SkolniRokyDAOJDBC();
+    List<SkolniRok> skolniRoky;
+    ObservableList<SkolniRok> items;
+    ObservableList<SkolniRok> selectedItems = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,33 +43,35 @@ public class KurzyController implements Initializable {
     }
 
     public void fillTable(){
-        kurzy = kurzyDao.getAll();
-        items = FXCollections.observableList(kurzy);
+        skolniRoky = skolniRokyDao.getAll();
+        items = FXCollections.observableList(skolniRoky);
         tableView.setItems(items);
     }
 
     public void initColumns() {
 
-        TableColumn<String, Kurz> nazevColumn = new TableColumn<>("Název");
+        TableColumn<String, SkolniRok> nazevColumn = new TableColumn<>("Název");
         nazevColumn.setCellValueFactory(new PropertyValueFactory<>("nazev"));
-        TableColumn<String, Kurz> skolniRokColumn = new TableColumn<>("Školní Rok");
-        skolniRokColumn.setCellValueFactory(new PropertyValueFactory<>("skolniRok"));
-        TableColumn<String, Kurz> predmetColumn = new TableColumn<>("Předmět");
-        predmetColumn.setCellValueFactory(new PropertyValueFactory<>("predmet"));
+        TableColumn<String, SkolniRok> zacatekColumn = new TableColumn<>("Začátek");
+        zacatekColumn.setCellValueFactory(new PropertyValueFactory<>("zacatek"));
+        TableColumn<String, SkolniRok> konecColumn = new TableColumn<>("Konec");
+        konecColumn.setCellValueFactory(new PropertyValueFactory<>("konec"));
         nazevColumn.setEditable(true);
+        zacatekColumn.setEditable(true);
+        konecColumn.setEditable(true);
 
-        tableView.getColumns().addAll(nazevColumn,skolniRokColumn,predmetColumn);
+        tableView.getColumns().addAll(nazevColumn,zacatekColumn,konecColumn);
     }
 
     public void handleSelection(){
-        TableView.TableViewSelectionModel<Kurz> selectionModel = tableView.getSelectionModel();
+        TableView.TableViewSelectionModel<SkolniRok> selectionModel = tableView.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
 
         selectedItems = selectionModel.getSelectedItems();
 
-        /*selectedItems.addListener(new ListChangeListener<Predmet>() {
+        /*selectedItems.addListener(new ListChangeListener<SkolniRok>() {
             @Override
-            public void onChanged(Change<? extends Predmet> change) {
+            public void onChanged(Change<? extends SkolniRok> change) {
                 System.out.println("Selection changed: " + change.getList());
                 System.out.println("Selected: " + selectedItems.get(0));
             }
@@ -76,23 +79,23 @@ public class KurzyController implements Initializable {
     }
 
     public void handlePridejButton(){
-        Dialog<Kurz> dialog = new Dialog<>();
-        dialog.setTitle("Nový kurz");
+        Dialog<SkolniRok> dialog = new Dialog<>();
+        dialog.setTitle("Nový školní rok");
         dialog.setWidth(400);
         dialog.setHeight(300);
-        kurzDialog(dialog);
+        skolniRokDialog(dialog);
 
-        final Optional<Kurz> vysledek = dialog.showAndWait();
+        final Optional<SkolniRok> vysledek = dialog.showAndWait();
         if(vysledek.isPresent()){
-            Kurz novyKurz = vysledek.get();
-            kurzy.add(novyKurz);
-            kurzyDao.insert(novyKurz);
+            SkolniRok novySkolniRok = vysledek.get();
+            skolniRoky.add(novySkolniRok);
+            skolniRokyDao.insert(novySkolniRok);
         }
         tableView.refresh();
 
     }
 
-    private void kurzDialog(Dialog dialog){
+    private void skolniRokDialog(Dialog dialog){
         // Vytvoření "potvrzovacího" tlačítka pro potvrzení dialogu
         ButtonType createButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         // Nastavení tlačítek dialogu
@@ -108,30 +111,30 @@ public class KurzyController implements Initializable {
         // Komponenty
         TextField nazevTextField = new TextField();
         Label nazevLabel = new Label("Název");
-        TextField skolniRokTextField = new TextField();
-        Label skolniRokLabel = new Label("Školní Rok");
-        TextField predmetTextField = new TextField();
-        Label predmetLabel = new Label("Předmět");
+        TextField zacatekTextField = new TextField();
+        Label zacatekLabel = new Label("Začátek");
+        TextField konecTextField = new TextField();
+        Label konecLabel = new Label("Konec");
 
         grid.add(nazevLabel, 0, 0);
         grid.add(nazevTextField, 1, 0);
-        grid.add(skolniRokLabel, 0, 1);
-        grid.add(skolniRokTextField, 1, 1);
-        grid.add(predmetLabel,0,2);
-        grid.add(predmetTextField,1,2);
+        grid.add(zacatekLabel, 0, 1);
+        grid.add(zacatekTextField, 1, 1);
+        grid.add(konecLabel,0,2);
+        grid.add(konecTextField,1,2);
 
 
         dialog.getDialogPane().setContent(grid);
 
-        dialog.setResultConverter(new Callback<ButtonType, Kurz>() {
+        dialog.setResultConverter(new Callback<ButtonType, SkolniRok>() {
             @Override
-            public Kurz call(ButtonType param) {
+            public SkolniRok call(ButtonType param) {
                 if (param == createButtonType) {
-                    Kurz kurz = new Kurz();
-                    kurz.setNazev(nazevTextField.getText());
-                    kurz.setSkolniRok(skolniRokTextField.getText());
-                    kurz.setPredmet(predmetTextField.getText());
-                    return kurz;
+                    SkolniRok skolniRok = new SkolniRok();
+                    skolniRok.setNazev(nazevTextField.getText());
+                    skolniRok.setZacatek(zacatekTextField.getText());
+                    skolniRok.setKonec(konecTextField.getText());
+                    return skolniRok;
                 }
                 return null;
             }
@@ -140,16 +143,17 @@ public class KurzyController implements Initializable {
 
     public void handleSmazButton(){
 
-        Kurz item = (Kurz) tableView.getSelectionModel().getSelectedItem();
+        SkolniRok item = (SkolniRok) tableView.getSelectionModel().getSelectedItem();
         System.out.println("Selected: " + item);
-        kurzy.remove(item);
-        kurzyDao.delete(item);
+        skolniRoky.remove(item);
+        skolniRokyDao.delete(item);
         tableView.refresh();
     }
 
     public void handleUpravButton(){
 
     }
+
 
     public void handleDomuButton() {
         FXMLLoader loader = new FXMLLoader();
@@ -165,3 +169,4 @@ public class KurzyController implements Initializable {
         Main.getPrimaryStage().setScene(scene);
     }
 }
+

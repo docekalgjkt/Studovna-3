@@ -80,7 +80,7 @@ public class MainController {
 
     public void selectDruhyZnamek(){
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("../view/Nefunguje.fxml"));
+        loader.setLocation(Main.class.getResource("../view/DruhyZnamek.fxml"));
         AnchorPane rootLayout = null;
         try {
             rootLayout = (AnchorPane) loader.load();
@@ -96,7 +96,7 @@ public class MainController {
 
     public void selectSkolniRok(){
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("../view/Nefunguje.fxml"));
+        loader.setLocation(Main.class.getResource("../view/SkolniRok.fxml"));
         AnchorPane rootLayout = null;
         try {
             rootLayout = (AnchorPane) loader.load();
@@ -110,7 +110,7 @@ public class MainController {
         Main.getPrimaryStage().setScene(scene);
     }
 
-    public void selectNastaveni(){
+  /*  public void selectNastaveni(){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("../view/Nefunguje.fxml"));
         AnchorPane rootLayout = null;
@@ -124,7 +124,7 @@ public class MainController {
         Scene scene = new Scene(rootLayout);
 
         Main.getPrimaryStage().setScene(scene);
-    }
+    }*/
 
     public void selectOAplikaci(){
         FXMLLoader loader = new FXMLLoader();
