@@ -1,12 +1,14 @@
 package cz.gjkt.view;
 
 import cz.gjkt.application.Main;
+import cz.gjkt.model.DruhZnamky;
+import cz.gjkt.model.DruhyZnamekDAOJDBC;
 import cz.gjkt.model.TypZnamky;
-import cz.gjkt.model.TypyZnamekDAOJDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,59 +21,68 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class DruhyZnamekController {
+public class DruhyZnamekController implements Initializable {
+
     @FXML
     TableView tableView;
 
-    TypyZnamekDAOJDBC typyZnamekDao = new TypyZnamekDAOJDBC();
-    List<TypZnamky> typyZnamek;
-    ObservableList<TypZnamky> items;
-    ObservableList<TypZnamky> selectedItems = null;
+    DruhyZnamekDAOJDBC druhyZnamekDao = new DruhyZnamekDAOJDBC();
+    List<DruhZnamky> druhyZnamek;
+    ObservableList<DruhZnamky> items;
+    ObservableList<DruhZnamky> selectedItems = null;
 
 
     public void fillTable(){
-        typyZnamek = typyZnamekDao.getAll();
-        items = FXCollections.observableList(typyZnamek);
+        druhyZnamek = druhyZnamekDao.getAll();
+        items = FXCollections.observableList(druhyZnamek);
         tableView.setItems(items);
     }
 
     public void initColumns() {
 
-        TableColumn<String, TypZnamky> nazevColumn = new TableColumn<>("Název");
+        TableColumn<String, DruhZnamky> nazevColumn = new TableColumn<>("Název");
         nazevColumn.setCellValueFactory(new PropertyValueFactory<>("nazev"));
-        TableColumn<String, TypZnamky> popisColumn = new TableColumn<>("Popis");
+        TableColumn<String, DruhZnamky> datumColumn = new TableColumn<>("Datum");
+        datumColumn.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        TableColumn<String, DruhZnamky> popisColumn = new TableColumn<>("Popis");
         popisColumn.setCellValueFactory(new PropertyValueFactory<>("popis"));
-        TableColumn<String, TypZnamky> minColumn = new TableColumn<>("Min.");
-        minColumn.setCellValueFactory(new PropertyValueFactory<>("min"));
-        TableColumn<String, TypZnamky> vahaColumn = new TableColumn<>("Váha");
-        vahaColumn.setCellValueFactory(new PropertyValueFactory<>("vaha"));
-        TableColumn<String, TypZnamky> rocnikColumn = new TableColumn<>("Ročník");
-        rocnikColumn.setCellValueFactory(new PropertyValueFactory<>("rocnik"));
-        TableColumn<String, TypZnamky> pololetiColumn = new TableColumn<>("Pololetí");
-        pololetiColumn.setCellValueFactory(new PropertyValueFactory<>("pololeti"));
-        TableColumn<String, TypZnamky> predmetColumn = new TableColumn<>("Předmět");
-        predmetColumn.setCellValueFactory(new PropertyValueFactory<>("predmet"));
+        TableColumn<String, DruhZnamky> typZnamkyColumn = new TableColumn<>("Typ Známky");
+        typZnamkyColumn.setCellValueFactory(new PropertyValueFactory<>("typZnamky"));
+        TableColumn<String, DruhZnamky> kurzColumn = new TableColumn<>("Kurz");
+        kurzColumn.setCellValueFactory(new PropertyValueFactory<>("kurz"));
         nazevColumn.setEditable(true);
 
-        tableView.getColumns().addAll(nazevColumn,popisColumn,minColumn,vahaColumn,rocnikColumn,pololetiColumn,predmetColumn);
+        tableView.getColumns().addAll(nazevColumn,datumColumn,popisColumn,typZnamkyColumn,kurzColumn);
     }
 
     public void handleSelection(){
-        TableView.TableViewSelectionModel<TypZnamky> selectionModel = tableView.getSelectionModel();
+        TableView.TableViewSelectionModel<DruhZnamky> selectionModel = tableView.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.SINGLE);
 
         selectedItems = selectionModel.getSelectedItems();
     }
 
     public void handlePridejButton(){
+        Dialog<DruhZnamky> dialog = new Dialog<>();
+        dialog.setTitle("Nový druh známky");
+        dialog.setWidth(400);
+        dialog.setHeight(300);
+        DruhZnamkyDialog(dialog);
 
+        final Optional<DruhZnamky> vysledek = dialog.showAndWait();
+        if(vysledek.isPresent()){
+            DruhZnamky novyDruhZnamky = vysledek.get();
+            druhyZnamek.add(novyDruhZnamky);
+            druhyZnamekDao.insert(novyDruhZnamky);
+        }
         tableView.refresh();
 
     }
 
-    private void typZnamkyDialog(Dialog dialog){
+    private void DruhZnamkyDialog(Dialog dialog){
         // Vytvoření "potvrzovacího" tlačítka pro potvrzení dialogu
         ButtonType createButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         // Nastavení tlačítek dialogu
@@ -87,51 +98,40 @@ public class DruhyZnamekController {
         // Komponenty
         TextField nazevTextField = new TextField();
         Label nazevLabel = new Label("Název");
+        TextField datumTextField = new TextField();
+        Label datumLabel = new Label("Datum");
         TextField popisTextField = new TextField();
         Label popisLabel = new Label("Popis");
-        TextField minTextField = new TextField();
-        Label minLabel = new Label("Min.");
-        TextField vahaTextField = new TextField();
-        Label vahaLabel = new Label("Váha");
-        TextField rocnikTextField = new TextField();
-        Label rocnikLabel = new Label("Ročník");
-        TextField pololetiTextField = new TextField();
-        Label pololetiLabel = new Label("Pololetí");
-        TextField predmetTextField = new TextField();
-        Label predmetLabel = new Label("Předmět");
+        TextField typZnamkyTextField = new TextField();
+        Label typZnamkyLabel = new Label("Typ Známky");
+        TextField kurzTextField = new TextField();
+        Label kurzLabel = new Label("Kurz");
 
 
         grid.add(nazevLabel, 0, 0);
         grid.add(nazevTextField, 1, 0);
-        grid.add(popisLabel, 0, 1);
-        grid.add(popisTextField, 1, 1);
-        grid.add(minLabel,0,2);
-        grid.add(minTextField,1,2);
-        grid.add(vahaLabel, 0, 3);
-        grid.add(vahaTextField, 1, 3);
-        grid.add(rocnikLabel, 0, 4);
-        grid.add(rocnikTextField, 1, 4);
-        grid.add(pololetiLabel, 0, 5 );
-        grid.add(pololetiTextField, 1, 5 );
-        grid.add(predmetLabel, 0, 6);
-        grid.add(predmetTextField, 1, 6);
-
+        grid.add(datumLabel, 0, 1);
+        grid.add(datumTextField, 1, 1);
+        grid.add(popisLabel,0,2);
+        grid.add(popisTextField,1,2);
+        grid.add(typZnamkyLabel, 0, 3);
+        grid.add(typZnamkyTextField, 1, 3);
+        grid.add(kurzLabel, 0, 4);
+        grid.add(kurzTextField, 1, 4);
 
         dialog.getDialogPane().setContent(grid);
 
-        dialog.setResultConverter(new Callback<ButtonType, TypZnamky>() {
+        dialog.setResultConverter(new Callback<ButtonType, DruhZnamky>() {
             @Override
-            public TypZnamky call(ButtonType param) {
+            public DruhZnamky call(ButtonType param) {
                 if (param == createButtonType) {
-                    TypZnamky typZnamky = new TypZnamky();
-                    typZnamky.setNazev(nazevTextField.getText());
-                    typZnamky.setPopis(popisTextField.getText());
-                    typZnamky.setMin(minTextField.getText());
-                    typZnamky.setVaha(vahaTextField.getText());
-                    typZnamky.setRocnik(rocnikTextField.getText());
-                    typZnamky.setPololeti(pololetiTextField.getText());
-                    typZnamky.setPredmet(predmetTextField.getText());
-                    return typZnamky;
+                    DruhZnamky druhZnamky = new DruhZnamky();
+                    druhZnamky.setNazev(nazevTextField.getText());
+                    druhZnamky.setDatum(datumTextField.getText());
+                    druhZnamky.setPopis(popisTextField.getText());
+                    druhZnamky.setTypZnamky(typZnamkyTextField.getText());
+                    druhZnamky.setKurz(kurzTextField.getText());
+                    return druhZnamky;
                 }
                 return null;
             }
@@ -142,8 +142,8 @@ public class DruhyZnamekController {
 
         TypZnamky item = (TypZnamky) tableView.getSelectionModel().getSelectedItem();
         System.out.println("Selected: " + item);
-        typyZnamek.remove(item);
-        typyZnamekDao.delete(item);
+        druhyZnamek.remove(item);
+        druhyZnamekDao.delete((List<DruhZnamky>) item);
         tableView.refresh();
     }
 

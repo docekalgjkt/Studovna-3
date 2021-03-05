@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.gjkt.view.PredmetyUpravController">
+    <children>
+        <Label layoutX="170.0" layoutY="60.0" prefHeight="17.0" prefWidth="36.0" text="Název" />
+        <TextField fx:id="nazev" layoutX="226.0" layoutY="56.0" />
+        <Label layoutX="170.0" layoutY="125.0" prefHeight="17.0" prefWidth="60.0" text="Popis" />
+        <TextField fx:id="popis" layoutX="226.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" />
+        <Label layoutX="170.0" layoutY="190.0" prefHeight="17.0" prefWidth="52.0" text="Sylabus" />
+        <TextField fx:id="sylabus" layoutX="226.0" layoutY="186.0" prefHeight="25.0" prefWidth="149.0" />
+        <Label layoutX="170.0" layoutY="255.0" prefHeight="17.0" prefWidth="52.0" text="Zkratka" />
+        <TextField fx:id="zkratka" layoutX="226.0" layoutY="251.0" />
+        <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleZahodButton" text="Cancel" />
+        <Button layoutX="478.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleUlozButton" text="Ulož" />
+
+    </children>
+</AnchorPane>

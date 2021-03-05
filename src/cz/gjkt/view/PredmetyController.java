@@ -54,8 +54,10 @@ public class PredmetyController implements Initializable {
         TableColumn<String, Predmet> zkratkaColumn = new TableColumn<>("Zkratka");
         zkratkaColumn.setCellValueFactory(new PropertyValueFactory<>("zkratka"));
         zkratkaColumn.setEditable(true);
+        TableColumn<String, Predmet> sylabusColumn = new TableColumn<>("Sylabus");
+        sylabusColumn.setCellValueFactory(new PropertyValueFactory<>("sylabus"));
 
-        tableView.getColumns().addAll(nazevColumn,popisColumn,zkratkaColumn);
+        tableView.getColumns().addAll(nazevColumn,popisColumn,zkratkaColumn,sylabusColumn);
     }
 
     public void handleSelection(){
@@ -149,18 +151,22 @@ public class PredmetyController implements Initializable {
         try{
         Predmet item = (Predmet) tableView.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("../view/Predmet.fxml"));
+        loader.setLocation(Main.class.getResource("../view/PredmetyUprav.fxml"));
         AnchorPane root = (AnchorPane) loader.load();
-        PredmetController controller = (PredmetController) loader.getController();
+        PredmetyUpravController controller = (PredmetyUpravController) loader.getController();
         controller.setPredmet(item);
         controller.setPredmetyScene(tableView.getScene());
-        controller.setPredmetyController(this);
+        controller.setPredmetController(this);
         Scene scene = new Scene(root);
         Stage ps = Main.getPrimaryStage();
         ps.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void refresh() {
+        tableView.refresh();
     }
 
     public void handleDomuButton(){
