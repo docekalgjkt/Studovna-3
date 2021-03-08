@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -151,7 +152,21 @@ public class SkolniRokController implements Initializable {
     }
 
     public void handleUpravButton(){
+        try {
 
+            SkolniRok item = (SkolniRok) tableView.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/SkolniRokUprav.fxml"));
+            AnchorPane root = (AnchorPane) loader.load();
+            SkolniRokUpravController controller = (SkolniRokUpravController) loader.getController();
+            controller.setSkolniRok(item);
+            controller.setSkolniRokScene(tableView.getScene());
+            controller.setSkolniRokController(this);
+            Scene scene = new Scene(root);
+            Stage ps = Main.getPrimaryStage();
+            ps.setScene(scene);
+
+        }catch (IOException e){e.printStackTrace();}
     }
 
 
@@ -167,6 +182,10 @@ public class SkolniRokController implements Initializable {
         Scene scene = new Scene(rootLayout);
 
         Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void refresh() {
+        tableView.refresh();
     }
 }
 

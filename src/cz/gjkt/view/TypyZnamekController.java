@@ -164,6 +164,22 @@ public class TypyZnamekController implements Initializable {
     }
 
     public void handleUpravButton(){
+        try {
+
+        TypZnamky item = (TypZnamky) tableView.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/TypyZnamekUprav.fxml"));
+        AnchorPane root = (AnchorPane) loader.load();
+        TypyZnamekUpravController controller = (TypyZnamekUpravController) loader.getController();
+        controller.setTypZnamky(item);
+        controller.setTypyZnamekScene(tableView.getScene());
+        controller.setTypyZnamekController(this);
+        Scene scene = new Scene(root);
+        Stage ps = Main.getPrimaryStage();
+        ps.setScene(scene);
+
+    }catch (IOException e){e.printStackTrace();}
+
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -148,7 +149,22 @@ public class KurzyController implements Initializable {
     }
 
     public void handleUpravButton(){
+        try {
 
+            Kurz item = (Kurz) tableView.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/KurzyUprav.fxml"));
+            AnchorPane root = (AnchorPane) loader.load();
+            KurzyUpravController controller = (KurzyUpravController) loader.getController();
+            controller.setKurz(item);
+            controller.setKurzyScene(tableView.getScene());
+            controller.setKurzyController(this);
+            Scene scene = new Scene(root);
+            Stage ps = Main.getPrimaryStage();
+            ps.setScene(scene);
+
+
+        }catch (IOException e){e.printStackTrace();}
     }
 
     public void handleDomuButton() {
@@ -163,5 +179,9 @@ public class KurzyController implements Initializable {
         Scene scene = new Scene(rootLayout);
 
         Main.getPrimaryStage().setScene(scene);
+    }
+
+    public void refresh() {
+        tableView.refresh();
     }
 }
