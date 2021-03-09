@@ -13,7 +13,6 @@ public class KurzyDAOJDBC implements IModelDao<Kurz> {
     public int insert(Kurz object) {
         DBManager dbManager = new DBManager();
         String[] values = new String[]{object.getNazev(), String.valueOf(object.getSkolniRok()), String.valueOf(object.getPredmet())};
-        //Predmet není String
         int id = dbManager.insert(TABLE,UPDATE_COMUNS,values);
         object.setId(id);
         dbManager.close();
@@ -134,7 +133,7 @@ public class KurzyDAOJDBC implements IModelDao<Kurz> {
             Kurz kurz = new Kurz();
             kurz.setId((int)row.get(0));
             kurz.setNazev((String)row.get(1));
-            kurz.setSkolniRok((int) row.get(2));
+            kurz.setSkolniRok((String) row.get(2));
             kurz.setPredmet((int) row.get(3));
            kurzy.add(kurz);
         }

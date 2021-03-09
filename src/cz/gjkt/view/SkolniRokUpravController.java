@@ -34,17 +34,17 @@ public class SkolniRokUpravController implements Initializable {
     }
 
     private void setNazev(String nazev){this.nazev.setText(nazev);}
-    private void setZacatek(String popis){this.zacatek.setText(popis);}
-    private void setKonec(String sylabus){this.konec.setText(sylabus);}
+    private void setZacatek(String zacatek){this.zacatek.setText(zacatek);}
+    private void setKonec(String konec){this.konec.setText(konec);}
 
     public void setSkolniRokScene(Scene scene){skolniRokScene = scene;}
     public void setSkolniRokController(SkolniRokController controller){SkolniRokController = controller;}
 
-    public void setSkolniRok(SkolniRok predmet){
+    public void setSkolniRok(SkolniRok skolniRok){
         this.skolniRok = skolniRok;
-        setNazev(predmet.getNazev());
-        setZacatek(predmet.getZacatek());
-        setKonec(predmet.getKonec());
+        setNazev(skolniRok.getNazev());
+        setZacatek(skolniRok.getZacatek());
+        setKonec(skolniRok.getKonec());
     }
 
     public void handleZahodButton() {
