@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,7 +24,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class TypyZnamekController {
+public class TypyZnamekController implements Initializable {
+
     @FXML
     TableView tableView;
 
@@ -68,7 +70,18 @@ public class TypyZnamekController {
     }
 
     public void handlePridejButton(){
+        Dialog<TypZnamky> dialog = new Dialog<>();
+        dialog.setTitle("Nový typ známky");
+        dialog.setWidth(400);
+        dialog.setHeight(300);
+        typZnamkyDialog(dialog);
 
+        final Optional<TypZnamky> vysledek = dialog.showAndWait();
+        if(vysledek.isPresent()){
+            TypZnamky novyTypZnamky = vysledek.get();
+            typyZnamek.add(novyTypZnamky);
+            typyZnamekDao.insert(novyTypZnamky);
+        }
         tableView.refresh();
 
     }
@@ -140,6 +153,7 @@ public class TypyZnamekController {
         });
     }
 
+
     public void handleSmazButton(){
 
         TypZnamky item = (TypZnamky) tableView.getSelectionModel().getSelectedItem();
@@ -150,6 +164,22 @@ public class TypyZnamekController {
     }
 
     public void handleUpravButton(){
+        try {
+
+        TypZnamky item = (TypZnamky) tableView.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../view/TypyZnamekUprav.fxml"));
+        AnchorPane root = (AnchorPane) loader.load();
+        TypyZnamekUpravController controller = (TypyZnamekUpravController) loader.getController();
+        controller.setTypZnamky(item);
+        controller.setTypyZnamekScene(tableView.getScene());
+        controller.setTypyZnamekController(this);
+        Scene scene = new Scene(root);
+        Stage ps = Main.getPrimaryStage();
+        ps.setScene(scene);
+
+    }catch (IOException e){e.printStackTrace();}
+
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {

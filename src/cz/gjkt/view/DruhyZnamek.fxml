@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.geometry.Insets?>
-<AnchorPane prefHeight="438.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.gjkt.view.KurzyController">
+<AnchorPane prefHeight="438.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.gjkt.view.DruhyZnamekController">
     <children>
         <HBox layoutX="-1.0" layoutY="-1.0" prefHeight="39.0" prefWidth="600.0">
             <children>
-                <Label text="Kurzy">
+                <Label prefHeight="38.0" prefWidth="184.0" text="Druhy známek">
                     <font>
                         <Font size="26.0" />
                     </font>
@@ -17,7 +17,7 @@
                         <Insets bottom="2.0" left="20.0" top="2.0" />
                     </HBox.margin>
                 </Label>
-                <HBox prefHeight="43.0" prefWidth="216.0">
+                <HBox prefHeight="42.0" prefWidth="226.0">
                     <children>
                         <Button mnemonicParsing="false" onAction="#handlePridejButton" text="Přidej">
                             <HBox.margin>

@@ -57,8 +57,10 @@ public class StudentiController implements Initializable {
         TableColumn<String, Student> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailColumn.setEditable(true);
+        TableColumn<String, Student> rokNastupuColumn = new TableColumn<>("Rok nástupu");
+        rokNastupuColumn.setCellValueFactory(new PropertyValueFactory<>("rokNastupu"));
 
-        tableView.getColumns().addAll(prijmeniColumn,jmenoColumn,emailColumn);
+        tableView.getColumns().addAll(prijmeniColumn,jmenoColumn,emailColumn,rokNastupuColumn);
     }
 
     public void handleSelection(){
@@ -113,6 +115,8 @@ public class StudentiController implements Initializable {
         Label jmenoLabel = new Label("Jméno");
         TextField emailTextField = new TextField();
         Label emailLabel = new Label("Email");
+        TextField rokNastupuTextField = new TextField();
+        Label rokNasupuLabel = new Label("Rok nástupu");
 
         grid.add(prijmeniLabel, 0, 0);
         grid.add(prijmeniTextField, 1, 0);
@@ -120,6 +124,8 @@ public class StudentiController implements Initializable {
         grid.add(jmenoTextField,1,1);
         grid.add(emailLabel,0,2);
         grid.add(emailTextField,1,2);
+        grid.add(rokNasupuLabel,0,3);
+        grid.add(rokNastupuTextField,1,3);
 
 
         dialog.getDialogPane().setContent(grid);
@@ -131,6 +137,7 @@ public class StudentiController implements Initializable {
                 student.setPrijmeni(prijmeniTextField.getText());
                 student.setJmeno(jmenoTextField.getText());
                 student.setEmail(emailTextField.getText());
+                student.setRokNastupu(rokNastupuTextField.getText());
                 return  student;
             }
         });
@@ -146,10 +153,27 @@ public class StudentiController implements Initializable {
     }
 
     public void handleUpravButton(){
+        try {
 
-        tableView.refresh();
+            Student item = (Student) tableView.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/StudentiUprav.fxml"));
+            AnchorPane root = (AnchorPane) loader.load();
+            StudentiUpravController controller = (StudentiUpravController) loader.getController();
+            controller.setStudent(item);
+            controller.setStudentiScene(tableView.getScene());
+            controller.setStudentController(this);
+            Scene scene = new Scene(root);
+            Stage ps = Main.getPrimaryStage();
+            ps.setScene(scene);
+
+
+        }catch (IOException e){e.printStackTrace();}
     }
 
+    public void refresh() {
+        tableView.refresh();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

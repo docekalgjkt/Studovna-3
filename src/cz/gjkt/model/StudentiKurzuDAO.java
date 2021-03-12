@@ -2,7 +2,15 @@ package cz.gjkt.model;
 
 import java.util.List;
 
-public class StudentiKurzuDAO implements IModelDao<Student> {
+public class StudentiKurzuDAO /*extends StudentiDAOJDBC*/ implements IModelDao<Student> {
+
+    private Kurz kurz;
+
+    public StudentiKurzuDAO() {this.kurz = kurz;}
+    public StudentiKurzuDAO(int kurzID){
+
+    }
+
     @Override
     public int insert(Student object) {
         return 0;
@@ -35,6 +43,7 @@ public class StudentiKurzuDAO implements IModelDao<Student> {
 
     @Override
     public Student getObject(int id) {
+
         return null;
     }
 
@@ -44,7 +53,7 @@ public class StudentiKurzuDAO implements IModelDao<Student> {
         String table = "Navstevuje";
         String[] columns = {"student"};
         String[] aCon = {"kurz="+ids[0]};
-        String[] oCon = {""};
+        String[] oCon = null;
         List<List<Object>> studentiIds = dbManager.select(table,columns,aCon,oCon);
         int[] studentiIDs = new int[studentiIds.size()];
         int i = 0;
@@ -58,6 +67,8 @@ public class StudentiKurzuDAO implements IModelDao<Student> {
 
     @Override
     public List<Student> getAll() {
+//        List<Student> studenti = getObjects(getIDsStudentu());
+//        return studenti;
         return null;
     }
 }
